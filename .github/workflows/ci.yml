@@ -22,3 +22,10 @@ jobs:
         run: flutter pub get
       - working-directory: example
         run: flutter analyze
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 31
+          target: google_apis
+          arch: x86_64
+          profile: pixel_2
+          script: cd example && flutter test integration_test/horai_core_flow_test.dart -d emulator-5554

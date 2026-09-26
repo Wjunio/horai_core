@@ -74,6 +74,39 @@ void main() {
       expect(production.config.minimumLevel, HoraiLogLevel.warning);
     });
 
+    test(
+      'routes every level to screen, console, and combined outputs',
+      () async {
+        final screenLogger = HoraiLogger(
+          config: const HoraiLoggerConfig(output: HoraiLogOutput.screen),
+        );
+        final screenSink = screenLogger.screenSink!;
+        final consoleLogger = HoraiLogger(
+          config: const HoraiLoggerConfig(output: HoraiLogOutput.console),
+        );
+        final bothLogger = HoraiLogger(
+          config: const HoraiLoggerConfig(output: HoraiLogOutput.both),
+        );
+
+        screenLogger.debug('debug');
+        screenLogger.info('info');
+        screenLogger.success('success');
+        screenLogger.warning('warning');
+        screenLogger.error('error');
+        screenLogger.fatal('fatal');
+        consoleLogger.info('console output');
+        bothLogger.info('combined output');
+
+        expect(
+          screenSink.entries.map((entry) => entry.level),
+          HoraiLogLevel.values,
+        );
+        expect(bothLogger.screenSink!.entries, hasLength(1));
+        await screenSink.dispose();
+        await bothLogger.screenSink!.dispose();
+      },
+    );
+
     test('sends sanitized structured entries to a custom sink', () {
       final sink = MemoryLogSink();
       final logger = HoraiLogger(
@@ -147,6 +180,29 @@ void main() {
       expect(nextSink.entries, hasLength(1));
     });
 
+    test('contains failures from a throwing sink error handler', () {
+      final logger = HoraiLogger(
+        config: const HoraiLoggerConfig(output: HoraiLogOutput.none),
+        environment: HoraiEnvironment.production,
+        sinks: [_ThrowingSink()],
+        onSinkError: (sink, error, stackTrace) => throw StateError('handler'),
+      );
+
+      expect(() => logger.error('operation failed'), returnsNormally);
+    });
+
+    test('uses a placeholder if an error cannot be stringified', () {
+      final sink = MemoryLogSink();
+      final logger = HoraiLogger(
+        config: const HoraiLoggerConfig(output: HoraiLogOutput.none),
+        sinks: [sink],
+      );
+
+      logger.error('failed', error: _UnprintableError());
+
+      expect(sink.entries.single.error, '[ERROR DESCRIPTION UNAVAILABLE]');
+    });
+
     test('memory sink retains only its configured capacity', () {
       final sink = MemoryLogSink(maxEntries: 2);
       final logger = HoraiLogger(
@@ -171,4 +227,9 @@ class _SecretObject {
 class _ThrowingSink implements HoraiLogSink {
   @override
   void write(HoraiLogEntry entry) => throw StateError('sink failure');
+}
+
+class _UnprintableError implements Exception {
+  @override
+  String toString() => throw StateError('cannot stringify');
 }

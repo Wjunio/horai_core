@@ -96,7 +96,7 @@ Para uma console de desenvolvimento, configure `HoraiLogOutput.screen` ou `both`
 
 Metadata passa por redaction recursiva antes de chegar aos sinks. Campos padrão incluem senhas, tokens, authorization, cookies, identificadores pessoais e dados bancários comuns; campos adicionais podem ser informados em `HoraiLogSanitizer`. Valores `Bearer` e atribuições sensíveis reconhecidas em texto livre também são redigidos.
 
-O sanitizer reduz exposição acidental, mas não reconhece todo dado pessoal em texto arbitrário. Evite registrar segredos ou objetos sensíveis diretamente. Objetos metadata não suportados são substituídos, ciclos são marcados e sinks customizados recebem entradas já sanitizadas. Falhas em sinks externos não interrompem o logger.
+O sanitizer reduz exposição acidental, mas não reconhece todo dado pessoal em texto arbitrário. Evite registrar segredos ou objetos sensíveis diretamente. Objetos metadata não suportados são substituídos, ciclos são marcados e sinks customizados recebem entradas já sanitizadas. Falhas em sinks externos não interrompem o logger; fallback em `dart:developer` ocorre automaticamente apenas em development. Configure `onSinkError` para encaminhar falhas em staging/production.
 
 ## Testes
 
@@ -105,6 +105,13 @@ dart format .
 flutter analyze
 flutter test
 flutter test --coverage
+```
+
+Execute os testes de integração no Android com um emulador iniciado, a partir da raiz:
+
+```sh
+cd example
+flutter test integration_test/horai_core_flow_test.dart -d emulator-5554
 ```
 
 O arquivo `coverage/lcov.info` pode ser usado por ferramentas locais de cobertura. A cobertura é uma métrica complementar; os testes priorizam comportamento, segurança e regressões.
@@ -117,6 +124,10 @@ O arquivo `coverage/lcov.info` pode ser usado por ferramentas locais de cobertur
 
 O app em `example/` demonstra ambientes, canais de alerta, tema personalizado e a console visual. Execute `cd example`, `flutter pub get` e `flutter run -d chrome`.
 
+## Licença
+
+Distribuído sob a licença MIT. Consulte o arquivo `LICENSE`.
+
 ## Publicação
 
-A licença MIT foi aprovada e o arquivo `LICENSE` existente foi mantido. O repositório oficial está configurado no `pubspec.yaml`. Homepage, issue tracker e documentação permanecem sem URL até que seus endereços oficiais sejam definidos. Não foi feita publicação.
+A licença MIT foi aprovada e o arquivo `LICENSE` existente foi mantido. O repositório e a documentação (README) estão configurados no `pubspec.yaml`. Homepage e issue tracker permanecem sem URL oficial. Não foi feita publicação.

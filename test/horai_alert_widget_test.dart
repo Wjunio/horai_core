@@ -3,6 +3,48 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:horai_core/horai_core.dart';
 
 void main() {
+  testWidgets('success, error, warning, and info shortcuts show alerts', (
+    tester,
+  ) async {
+    final core = HoraiCore(
+      config: const HoraiCoreConfig(
+        alertConfig: HoraiAlertConfig(
+          deduplication: HoraiAlertDeduplication(
+            mode: HoraiAlertDeduplicationMode.disabled,
+          ),
+          animation: HoraiAlertAnimation(type: HoraiAlertAnimationType.none),
+        ),
+      ),
+    );
+    late BuildContext alertContext;
+    await tester.pumpWidget(
+      _app(core, onContext: (context) => alertContext = context),
+    );
+
+    final shortcuts = <HoraiAlertType, bool Function()>{
+      HoraiAlertType.success: () => core.alert.success(
+        context: alertContext,
+        message: 'shortcut success',
+      ),
+      HoraiAlertType.error: () =>
+          core.alert.error(context: alertContext, message: 'shortcut error'),
+      HoraiAlertType.warning: () => core.alert.warning(
+        context: alertContext,
+        message: 'shortcut warning',
+      ),
+      HoraiAlertType.info: () =>
+          core.alert.info(context: alertContext, message: 'shortcut info'),
+    };
+
+    for (final entry in shortcuts.entries) {
+      expect(entry.value(), isTrue);
+      await tester.pump();
+      expect(find.text('shortcut ${entry.key.name}'), findsOneWidget);
+      await tester.tap(find.byTooltip('Dismiss alert'));
+      await tester.pump();
+    }
+  });
+
   testWidgets('renders all four presentation channels', (tester) async {
     for (final presentation in [
       HoraiAlertPresentation.toast,

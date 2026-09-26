@@ -233,10 +233,12 @@ class HoraiLogger {
     try {
       return _sanitizer.sanitizeText(value.toString());
     } on Object {
-      developer.log(
-        'HORAI logger could not stringify an error value',
-        name: 'horai_core',
-      );
+      if (_environment == HoraiEnvironment.development) {
+        developer.log(
+          'HORAI logger could not stringify an error value',
+          name: 'horai_core',
+        );
+      }
       return '[ERROR DESCRIPTION UNAVAILABLE]';
     }
   }
@@ -251,17 +253,21 @@ class HoraiLogger {
         _onSinkError(sink, error, stackTrace);
         return;
       } on Object catch (handlerError, handlerStackTrace) {
-        developer.log(
-          'HORAI sink error handler failed: ${_safeString(handlerError)}\n'
-          '${_sanitizer.sanitizeText('$handlerStackTrace')}',
-          name: 'horai_core',
-        );
+        if (_environment == HoraiEnvironment.development) {
+          developer.log(
+            'HORAI sink error handler failed: ${_safeString(handlerError)}\n'
+            '${_sanitizer.sanitizeText('$handlerStackTrace')}',
+            name: 'horai_core',
+          );
+        }
       }
     }
-    developer.log(
-      'HORAI log sink failed: ${_safeString(error)}\n'
-      '${_sanitizer.sanitizeText('$stackTrace')}',
-      name: 'horai_core',
-    );
+    if (_environment == HoraiEnvironment.development) {
+      developer.log(
+        'HORAI log sink failed: ${_safeString(error)}\n'
+        '${_sanitizer.sanitizeText('$stackTrace')}',
+        name: 'horai_core',
+      );
+    }
   }
 }

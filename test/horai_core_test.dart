@@ -53,6 +53,23 @@ void main() {
       expect(customized.icon, const Color(0xFFABCDEF));
       expect(customized.background, original.background);
       expect(customized.title, original.title);
+
+      final complete = original.copyWith(
+        background: const Color(0xFF000001),
+        foreground: const Color(0xFF000002),
+        border: const Color(0xFF000003),
+        icon: const Color(0xFF000004),
+        title: const Color(0xFF000005),
+        message: const Color(0xFF000006),
+        action: const Color(0xFF000007),
+      );
+      expect(complete.background, const Color(0xFF000001));
+      expect(complete.foreground, const Color(0xFF000002));
+      expect(complete.border, const Color(0xFF000003));
+      expect(complete.icon, const Color(0xFF000004));
+      expect(complete.title, const Color(0xFF000005));
+      expect(complete.message, const Color(0xFF000006));
+      expect(complete.action, const Color(0xFF000007));
     });
   });
 }
