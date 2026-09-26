@@ -1,0 +1,12 @@
+.git/
+.dart_tool/
+.idea/
+.vscode/
+build/
+coverage/
+example/.dart_tool/
+example/build/
+*.iml
+pubspec.lock
+example/pubspec.lock
+.flutter-plugins-dependencies
