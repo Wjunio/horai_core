@@ -47,23 +47,23 @@ class HoraiLogger {
     }
 
     return HoraiLogger._(
-      config: config,
-      environment: environment,
-      sanitizer: config.effectiveSanitizer,
-      sinks: List<HoraiLogSink>.unmodifiable(resolvedSinks),
-      screenSink: screenSink,
-      onSinkError: onSinkError,
+      config,
+      environment,
+      config.effectiveSanitizer,
+      List<HoraiLogSink>.unmodifiable(resolvedSinks),
+      screenSink,
+      onSinkError,
     );
   }
 
-  HoraiLogger._({
-    required this.config,
-    required this._environment,
-    required this._sanitizer,
-    required this._sinks,
-    required this.screenSink,
-    required this._onSinkError,
-  });
+  HoraiLogger._(
+    this.config,
+    this._environment,
+    this._sanitizer,
+    this._sinks,
+    this.screenSink,
+    this._onSinkError,
+  );
 
   /// Configuration used by this logger.
   final HoraiLoggerConfig config;
