@@ -11,7 +11,25 @@ A faixa foi definida com base no ambiente estável usado no desenvolvimento (Flu
 
 ## Instalação
 
-Depois da publicação, adicione `horai_core` às dependências Flutter. Durante desenvolvimento local, use uma dependência `path` para este repositório.
+Adicione o package ao seu projeto Flutter:
+
+```sh
+flutter pub add horai_core
+```
+
+Depois, importe a API pública:
+
+```dart
+import 'package:horai_core/horai_core.dart';
+```
+
+Durante o desenvolvimento local deste repositório, use uma dependência `path`:
+
+```yaml
+dependencies:
+	horai_core:
+		path: ../horai_core
+```
 
 ## Início rápido
 
@@ -128,6 +146,21 @@ O app em `example/` demonstra ambientes, canais de alerta, tema personalizado e 
 
 Distribuído sob a licença MIT. Consulte o arquivo `LICENSE`.
 
-## Publicação
+## Para mantenedores
 
-A licença MIT foi aprovada e o arquivo `LICENSE` existente foi mantido. O repositório e a documentação (README) estão configurados no `pubspec.yaml`. Homepage e issue tracker permanecem sem URL oficial. Não foi feita publicação.
+Antes de publicar uma nova versão, execute as validações na raiz do package:
+
+```sh
+dart format .
+flutter analyze
+flutter test
+dart pub publish --dry-run
+```
+
+Se a simulação terminar sem warnings, atualize a versão em `pubspec.yaml`, registre a versão e as mudanças em `CHANGELOG.md` e publique:
+
+```sh
+dart pub publish
+```
+
+O comando solicitará confirmação e autenticação no pub.dev quando necessário. A publicação de uma versão é permanente; versões já publicadas não podem ser reutilizadas.

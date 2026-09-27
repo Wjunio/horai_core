@@ -1,4 +1,4 @@
-## 0.0.1 - Unreleased
+## 0.0.1 - 2026-09-27
 
 * Added instance-scoped core and environment configuration.
 * Added customizable alert themes, four presentation channels, queueing, deduplication, and lifecycle-aware host.
