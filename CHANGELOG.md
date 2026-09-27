@@ -1,3 +1,7 @@
+## 0.0.2 - 2026-09-27
+
+* Added example screenshots to the package documentation.
+
 ## 0.0.1 - 2026-09-27
 
 * Added instance-scoped core and environment configuration.

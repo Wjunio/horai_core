@@ -1,6 +1,6 @@
 name: horai_core
 description: Modern, customizable alerts and structured logging for Flutter applications.
-version: 0.0.1
+version: 0.0.2
 repository: https://github.com/Wjunio/horai_core
 documentation: https://github.com/Wjunio/horai_core#readme
 

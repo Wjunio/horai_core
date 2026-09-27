@@ -142,6 +142,19 @@ O arquivo `coverage/lcov.info` pode ser usado por ferramentas locais de cobertur
 
 O app em `example/` demonstra ambientes, canais de alerta, tema personalizado e a console visual. Execute `cd example`, `flutter pub get` e `flutter run -d chrome`.
 
+## Demonstração
+
+### Alertas
+
+![Alerta de sucesso](doc/screenshots/alert-sucesso.png)
+![Alerta de erro](doc/screenshots/alert-error.png)
+![Alerta de aviso](doc/screenshots/alert_warning.png)
+![Alerta em diálogo](doc/screenshots/alert-dialog-error.png)
+
+### Console de logs
+
+![Console de logs do HORAI](doc/screenshots/console.log.png)
+
 ## Licença
 
 Distribuído sob a licença MIT. Consulte o arquivo `LICENSE`.
