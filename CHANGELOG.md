@@ -1,3 +1,7 @@
+## 0.0.4 - 2026-09-29
+
+* Added customizable confirmation dialogs, including an informational variant.
+
 ## 0.0.3 - 2026-09-27
 
 * Fixed README screenshot URLs for pub.dev rendering.
