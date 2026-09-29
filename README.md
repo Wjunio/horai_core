@@ -171,6 +171,13 @@ O app em `example/` demonstra ambientes, canais de alerta, tema personalizado e 
 ![Alerta de aviso](https://raw.githubusercontent.com/Wjunio/horai_core/main/doc/screenshots/alert_warning.png)
 ![Alerta em diálogo](https://raw.githubusercontent.com/Wjunio/horai_core/main/doc/screenshots/alert-dialog-error.png)
 
+### Confirmações
+
+![Confirmação de sucesso](https://raw.githubusercontent.com/Wjunio/horai_core/main/doc/screenshots/confirma-sucesso.png)
+![Confirmação de erro](https://raw.githubusercontent.com/Wjunio/horai_core/main/doc/screenshots/confirma-error.png)
+![Confirmação de atenção](https://raw.githubusercontent.com/Wjunio/horai_core/main/doc/screenshots/confirma-warning.png)
+![Confirmação de informação](https://raw.githubusercontent.com/Wjunio/horai_core/main/doc/screenshots/confirma-info.png)
+
 ### Console de logs
 
 ![Console de logs do HORAI](https://raw.githubusercontent.com/Wjunio/horai_core/main/doc/screenshots/console.log.png)

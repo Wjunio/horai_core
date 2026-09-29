@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:horai_core_example/main.dart';
 
@@ -18,7 +19,7 @@ void main() {
     await tester.pumpWidget(const HoraiExampleApp());
 
     expect(find.text('Confirmation dialogs'), findsOneWidget);
-    await tester.tap(find.text('Warning').last);
+    await tester.tap(find.widgetWithText(FilledButton, 'Warning').last);
     await tester.pumpAndSettle();
 
     expect(find.text('Atenção!'), findsOneWidget);
