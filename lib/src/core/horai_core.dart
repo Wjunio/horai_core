@@ -1,5 +1,6 @@
 import 'horai_core_config.dart';
 import '../alerts/horai_alert.dart';
+import '../alerts/horai_confirmation.dart';
 import '../logger/horai_logger.dart';
 
 /// Composition root for independently usable HORAI modules.
@@ -7,6 +8,7 @@ class HoraiCore {
   /// Creates an injectable HORAI configuration scope.
   HoraiCore({this.config = const HoraiCoreConfig()}) {
     alert = HoraiAlert(this);
+    confirmation = HoraiConfirmation(this);
   }
 
   /// Configuration owned by this instance.
@@ -14,6 +16,9 @@ class HoraiCore {
 
   /// Alert API bound to this core instance.
   late final HoraiAlert alert;
+
+  /// Confirmation dialog API bound to this core instance.
+  late final HoraiConfirmation confirmation;
 
   HoraiLogger? _logger;
 

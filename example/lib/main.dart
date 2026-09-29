@@ -204,6 +204,31 @@ class _HoraiExamplePageState extends State<_HoraiExamplePage> {
               ),
               const SizedBox(height: 28),
               Text(
+                'Confirmation dialogs',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 12),
+              Builder(
+                builder: (confirmationContext) => Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    for (final type in HoraiAlertType.values)
+                      _confirmationButton(confirmationContext, type),
+                    FilledButton.tonalIcon(
+                      onPressed: () => _showConfirmation(
+                        confirmationContext,
+                        HoraiAlertType.warning,
+                        customizeText: true,
+                      ),
+                      icon: const Icon(Icons.edit_outlined),
+                      label: const Text('Custom warning'),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 28),
+              Text(
                 'Structured logger',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
@@ -231,6 +256,45 @@ class _HoraiExamplePageState extends State<_HoraiExamplePage> {
         ),
       ),
     );
+  }
+
+  Widget _confirmationButton(BuildContext context, HoraiAlertType type) {
+    final (label, icon) = switch (type) {
+      HoraiAlertType.success => ('Success', Icons.check_circle_outline),
+      HoraiAlertType.error => ('Error', Icons.error_outline),
+      HoraiAlertType.warning => ('Warning', Icons.warning_amber_rounded),
+      HoraiAlertType.info => ('Information', Icons.info_outline),
+    };
+
+    return FilledButton.tonalIcon(
+      onPressed: () => _showConfirmation(context, type),
+      icon: Icon(icon),
+      label: Text(label),
+    );
+  }
+
+  Future<void> _showConfirmation(
+    BuildContext context,
+    HoraiAlertType type, {
+    bool customizeText = false,
+  }) async {
+    final result = await widget.core.confirmation.show(
+      context: context,
+      type: type,
+      title: customizeText ? 'Custom warning title' : null,
+      message: customizeText ? 'Custom warning message' : null,
+      confirmLabel: customizeText ? 'Continue anyway' : null,
+      cancelLabel: customizeText ? 'Keep editing' : null,
+    );
+    if (!context.mounted) return;
+
+    final outcome = switch (result) {
+      true => 'confirmed',
+      false => 'cancelled',
+      null => 'closed without choosing',
+    };
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('Confirmation $outcome')));
   }
 
   Widget _alertButton(

@@ -4,6 +4,7 @@ export 'src/alerts/horai_alert_data.dart';
 export 'src/alerts/horai_alert_deduplication.dart';
 export 'src/alerts/horai_alert_animation.dart';
 export 'src/alerts/horai_alert.dart';
+export 'src/alerts/horai_confirmation.dart';
 export 'src/alerts/horai_alert_presentation.dart';
 export 'src/alerts/horai_alert_position.dart';
 export 'src/alerts/horai_alert_theme.dart';

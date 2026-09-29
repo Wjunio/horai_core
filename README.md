@@ -77,6 +77,26 @@ Os atalhos `success`, `error`, `warning` e `info` usam as configurações da ins
 O `HoraiAlertHost` deve envolver o conteúdo da aplicação, normalmente no `MaterialApp.builder`. Ele mantém a fila por host, descarta contextos após a chamada, pausa timers em background e ajusta a posição a `viewPadding` e teclado. A fila tem limite configurável e a deduplicação pode ser desligada ou baseada em mensagem, tipo/mensagem ou chave própria.
 
 ## Tema
+## Confirmação
+
+`horai.confirmation.show` abre um diálogo com textos padrão em português para cada variante. Título, mensagem e rótulos dos botões podem ser substituídos por chamada. O retorno é `true` ao confirmar, `false` ao cancelar e `null` ao fechar sem escolher uma ação:
+
+```dart
+final confirmed = await horai.confirmation.show(
+	context: context,
+	type: HoraiAlertType.warning,
+	title: 'Excluir conta?',
+	message: 'Esta ação não pode ser desfeita.',
+	confirmLabel: 'Excluir',
+	cancelLabel: 'Manter conta',
+);
+
+if (confirmed == true) {
+	await deleteAccount();
+}
+```
+
+## Tema
 
 HORAI fornece uma paleta teal/emerald por tipo, com cores separadas para fundo, texto, borda, ícone e ação. O tema pode ser substituído por instância ou por alerta:
 
